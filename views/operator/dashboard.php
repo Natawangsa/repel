@@ -3,6 +3,9 @@ require_once __DIR__ . '/../../includes/db.php';
 require_once __DIR__ . '/../../includes/auth.php';
 require_once __DIR__ . '/../../includes/layout.php';
 requireAuth('operator');
+$userId = authUser()['id'];
+$session = getOrCreateSession($userId);
+$sessionId = $session->id;
 
 // BUG FIX: tambah status 'ready_print' agar order dari desainer muncul di sini
 $today  = date('Y-m-d');
@@ -13,13 +16,13 @@ $orders = dbSelect("
     ORDER BY o.is_urgent DESC, o.deadline ASC
 ");
 
-$session = dbSelectOne("SELECT * FROM print_sessions WHERE id=1");
+// $session already fetched via getOrCreateSession() above
 $selectedOrders = [];
 if ($session) {
     $selectedOrders = dbSelect("
         SELECT o.order_id FROM print_session_orders pso
-        JOIN orders o ON pso.order_id=o.id WHERE pso.session_id=1
-    ");
+        JOIN orders o ON pso.order_id=o.id WHERE pso.session_id=?
+    ", [$sessionId]);
 }
 $selectedIds = array_column(array_map(fn($r)=>(array)$r, $selectedOrders), 'order_id');
 $printers = dbSelect("SELECT * FROM printers ORDER BY id ASC");

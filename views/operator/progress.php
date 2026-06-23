@@ -4,8 +4,10 @@ require_once __DIR__ . '/../../includes/auth.php';
 require_once __DIR__ . '/../../includes/layout.php';
 requireAuth('operator');
 
-$session = dbSelectOne("SELECT * FROM print_sessions WHERE id=1");
-$selectedOrders = $session ? dbSelect("SELECT o.order_id FROM print_session_orders pso JOIN orders o ON pso.order_id=o.id WHERE pso.session_id=1") : [];
+$userId  = authUser()['id'];
+$session = getOrCreateSession($userId);
+$sessionId = $session->id;
+$selectedOrders = dbSelect("SELECT o.order_id FROM print_session_orders pso JOIN orders o ON pso.order_id=o.id WHERE pso.session_id=?", [$sessionId]);
 
 // Get linked printer (if any)
 $printerId = $session->printer_id ?? 0;

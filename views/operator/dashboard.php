@@ -3,18 +3,45 @@ require_once __DIR__ . '/../../includes/db.php';
 require_once __DIR__ . '/../../includes/auth.php';
 require_once __DIR__ . '/../../includes/layout.php';
 requireAuth('operator');
-$userId = authUser()['id'];
-$session = getOrCreateSession($userId);
+$userId   = authUser()['id'];
+$username = authUser()['username'];
+$session  = getOrCreateSession($userId);
 $sessionId = $session->id;
 
-// BUG FIX: tambah status 'ready_print' agar order dari desainer muncul di sini
-$today  = date('Y-m-d');
-$orders = dbSelect("
-    SELECT o.*, c.name AS customer_name
-    FROM orders o JOIN customers c ON o.customer_id=c.id
-    WHERE o.design_status='approved' AND o.status IN ('approved','new_order','ready_print')
-    ORDER BY o.is_urgent DESC, o.deadline ASC
-");
+// Mapping username operator → product_type yang boleh dilihat
+$operatorProductMap = [
+    'operator_uv'      => ['UV Print'],
+    'operator_indoor'  => ['Sticker Indoor'],
+    'operator_bendera' => ['Bendera'],
+    'operator_dtf'     => ['DTF'],
+    'operator_banner'  => ['Banner'],
+    'operator_a3'      => ['Sticker A3+'],
+    'operator_laser1'  => ['Cutting Laser'],
+    'operator_laser2'  => ['Cutting Laser'],
+];
+
+$today = date('Y-m-d');
+
+if (isset($operatorProductMap[$username])) {
+    $allowedTypes  = $operatorProductMap[$username];
+    $placeholders  = implode(',', array_fill(0, count($allowedTypes), '?'));
+    $orders = dbSelect("
+        SELECT o.*, c.name AS customer_name
+        FROM orders o JOIN customers c ON o.customer_id=c.id
+        WHERE o.design_status='approved'
+          AND o.status IN ('approved','new_order','ready_print')
+          AND o.product_type IN ($placeholders)
+        ORDER BY o.is_urgent DESC, o.deadline ASC
+    ", $allowedTypes);
+} else {
+    // Fallback: tampilkan semua (untuk akun operator lama / generic)
+    $orders = dbSelect("
+        SELECT o.*, c.name AS customer_name
+        FROM orders o JOIN customers c ON o.customer_id=c.id
+        WHERE o.design_status='approved' AND o.status IN ('approved','new_order','ready_print')
+        ORDER BY o.is_urgent DESC, o.deadline ASC
+    ");
+}
 
 // $session already fetched via getOrCreateSession() above
 $selectedOrders = [];
@@ -95,14 +122,6 @@ layoutStart('Dashboard','dashboard');
     </div>
     <form method="POST" action="/operator/start">
       <input type="hidden" name="_token" value="<?= csrfToken() ?>">
-      <select name="printer_id" class="form-control" style="margin-bottom:10px;font-size:12px;">
-        <option value="0">-- Pilih Mesin --</option>
-        <?php foreach ($printers as $pr):
-          $connLabel = ($pr->connection_type ?? 'lan') === 'usb' ? 'USB' : 'LAN';
-        ?>
-        <option value="<?= $pr->id ?>"><?= h($pr->name) ?> (<?= h($pr->machine) ?>) [<?= $connLabel ?>]</option>
-        <?php endforeach; ?>
-      </select>
       <button type="submit" class="btn btn-purple btn-full btn-lg">▶ MULAI PRINT</button>
     </form>
     <?php else: ?>

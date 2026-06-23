@@ -116,7 +116,6 @@ $db->exec("CREATE TABLE printers (
 $users = [
     ['admin',     'admin123',     'admin'],
     ['desainer',  'desainer123',  'desainer'],
-    ['operator',  'operator123',  'operator'],
     ['operator_uv',      'operator123',  'operator'],
     ['operator_indoor',  'operator123',  'operator'],
     ['operator_bendera', 'operator123',  'operator'],
@@ -156,7 +155,6 @@ echo "✓ Database baru berhasil dibuat (bersih, tanpa data dummy)!\n\n";
 echo "✓ Akun login:\n";
 echo "  admin            / admin123\n";
 echo "  desainer         / desainer123\n";
-echo "  operator         / operator123     (generic)\n";
 echo "  operator_uv      / operator123     (PC Hafi 1 - UV)\n";
 echo "  operator_indoor  / operator123     (PC Indoor)\n";
 echo "  operator_bendera / operator123     (PC Bendera)\n";

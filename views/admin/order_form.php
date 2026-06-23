@@ -49,8 +49,8 @@ $productTypes = ['Banner','Sticker Indoor','Sticker A3+','Bendera','UV Print','C
     <div class="card">
       <h3 class="card-title">Detail Produk</h3>
       <div class="form-row">
-        <div class="form-group"><label class="form-label">Panjang (m)</label><input name="panjang" type="number" step="0.01" class="form-control" placeholder="Panjang"></div>
-        <div class="form-group"><label class="form-label">Lebar (m)</label><input name="lebar" type="number" step="0.01" class="form-control" placeholder="Lebar"></div>
+        <div class="form-group"><label class="form-label">Panjang (cm)</label><input name="panjang" type="number" step="0.01" class="form-control" placeholder="Panjang"></div>
+        <div class="form-group"><label class="form-label">Lebar (cm)</label><input name="lebar" type="number" step="0.01" class="form-control" placeholder="Lebar"></div>
         <div class="form-group"><label class="form-label">Bahan</label><input name="bahan" type="text" class="form-control" placeholder="Material"></div>
         <div class="form-group"><label class="form-label">Quantity</label><input name="quantity" type="number" min="1" class="form-control" value="1"></div>
       </div>

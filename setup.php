@@ -68,7 +68,8 @@ $db->exec("CREATE TABLE expenses (
     id          INTEGER PRIMARY KEY AUTOINCREMENT,
     amount      REAL NOT NULL,
     description TEXT,
-    created_at  TEXT DEFAULT (datetime('now'))
+    created_at  TEXT DEFAULT (datetime('now')),
+    updated_at  TEXT DEFAULT (datetime('now'))
 )");
 
 $db->exec("CREATE TABLE print_sessions (
@@ -81,6 +82,7 @@ $db->exec("CREATE TABLE print_sessions (
     ink_m         INTEGER DEFAULT 60,
     ink_y         INTEGER DEFAULT 80,
     ink_k         INTEGER DEFAULT 30,
+    printer_id    INTEGER DEFAULT 0,
     updated_at    TEXT DEFAULT (datetime('now'))
 )");
 
@@ -88,6 +90,25 @@ $db->exec("CREATE TABLE print_session_orders (
     id         INTEGER PRIMARY KEY AUTOINCREMENT,
     session_id INTEGER NOT NULL,
     order_id   INTEGER NOT NULL
+)");
+
+$db->exec("CREATE TABLE printers (
+    id              INTEGER PRIMARY KEY AUTOINCREMENT,
+    name            TEXT NOT NULL,
+    machine         TEXT NOT NULL,
+    ip_address      TEXT,
+    connection_type TEXT DEFAULT 'lan',
+    status          TEXT DEFAULT 'offline',
+    ink_c           INTEGER DEFAULT 0,
+    ink_m           INTEGER DEFAULT 0,
+    ink_y           INTEGER DEFAULT 0,
+    ink_k           INTEGER DEFAULT 0,
+    progress        INTEGER DEFAULT 0,
+    current_job     TEXT,
+    error_msg       TEXT,
+    last_seen       TEXT,
+    created_at      TEXT DEFAULT (datetime('now')),
+    updated_at      TEXT DEFAULT (datetime('now'))
 )");
 
 // ── Seed Users saja (tanpa customer & order) ───────────────────────────────
@@ -107,6 +128,22 @@ foreach ($users as [$u, $p, $r]) {
 // Print session default
 $db->exec("INSERT INTO print_sessions (id,session_date,status,progress,estimate_time)
            VALUES (1,date('now'),'idle',0,'00:00')");
+
+// Seed printers
+$printerStmt = $db->prepare("INSERT INTO printers (name, machine, ip_address, connection_type) VALUES (?, ?, ?, ?)");
+$printers = [
+    ['PC Hafi 1 - UV',  'Nocai UV',            null,              'lan'],
+    ['PC Indoor',       'Epson S40679',         '192.168.1.164',   'lan'],
+    ['PC Bendera',      'Century Star',         '192.168.1.10',    'lan'],
+    ['PC DTF',          'Kingjet DTF',          null,              'usb'],
+    ['PC Banner',       'Allwin K3204B-512i',   null,              'usb'],
+    ['PC Server - A3',  'Ricoh Pro C5100s',     '192.168.1.56',    'lan'],
+    ['Laser Cutting 1', 'Laser Cutter',         '192.168.1.135',   'lan'],
+    ['Laser Cutting 2', 'Laser Cutter',         null,              'usb'],
+];
+foreach ($printers as [$name, $machine, $ip, $conn]) {
+    $printerStmt->execute([$name, $machine, $ip, $conn]);
+}
 
 echo "✓ Database baru berhasil dibuat (bersih, tanpa data dummy)!\n\n";
 echo "✓ Akun login:\n";

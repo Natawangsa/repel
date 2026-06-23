@@ -51,7 +51,6 @@ if (route('GET',  '/admin/search',         'admin/search'))        exit;
 if (route('GET',  '/admin/reports',        'admin/reports'))       exit;
 if (route('POST', '/admin/reports/filter', 'admin/reports_filter'))exit;
 if (route('GET',  '/admin/settings',       'admin/settings'))      exit;
-if (route('GET',  '/admin/profile',        'admin/profile'))       exit;
 if (route('POST', '/admin/approve',        'admin/approve'))       exit;
 if (route('POST', '/admin/order/pickup',   'admin/order_pickup'))  exit;
 if (route('POST', '/admin/order/done',     'admin/order_done'))    exit;
@@ -63,7 +62,6 @@ if (route('POST', '/desainer/upload',           'desainer/upload'))       exit;
 if (route('POST', '/desainer/request-approval', 'desainer/request_approval')) exit;
 if (route('POST', '/desainer/goto-print',       'desainer/goto_print'))   exit;
 if (route('GET',  '/desainer/settings',         'desainer/settings'))     exit;
-if (route('GET',  '/desainer/profile',          'desainer/profile'))      exit;
 
 // ── OPERATOR ───────────────────────────────────────────────────────────────
 if (route('GET',  '/operator/dashboard',       'operator/dashboard'))      exit;
@@ -76,13 +74,11 @@ if (route('POST', '/operator/cancel',          'operator/cancel'))         exit;
 if (route('POST', '/operator/finish',          'operator/finish'))         exit;
 if (route('POST', '/operator/progress/update', 'operator/progress_update'))exit;
 if (route('GET',  '/operator/settings',        'operator/settings'))       exit;
-if (route('GET',  '/operator/profile',         'operator/profile'))        exit;
 
 // ── FINISHING ──────────────────────────────────────────────────────────────
 if (route('GET',  '/finishing/dashboard', 'finishing/dashboard')) exit;
 if (route('POST', '/finishing/done',      'finishing/done'))      exit;
 if (route('GET',  '/finishing/settings',  'finishing/settings'))  exit;
-if (route('GET',  '/finishing/profile',   'finishing/profile'))   exit;
 
 // ── OWNER ──────────────────────────────────────────────────────────────────
 if (route('GET',  '/owner/dashboard',                 'owner/dashboard'))           exit;
@@ -91,7 +87,10 @@ if (route('GET',  '/owner/customer',                  'owner/customer'))        
 if (route('GET',  '/owner/search',                    'owner/search'))              exit;
 if (route('GET',  '/owner/settings',                  'owner/settings'))            exit;
 if (route('POST', '/owner/settings/change-password',  'owner/change_password'))     exit;
-if (route('GET',  '/owner/profile',                   'owner/profile'))             exit;
+
+// ── API ─────────────────────────────────────────────────────────────────────
+if (route('POST', '/api/printer-status', 'api/printer_status_post')) exit;
+if (route('GET',  '/api/printer-status', 'api/printer_status_get'))  exit;
 
 // ── 404 ────────────────────────────────────────────────────────────────────
 http_response_code(404);

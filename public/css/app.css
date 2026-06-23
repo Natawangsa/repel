@@ -1,4 +1,4 @@
-/* HaFI85 Digital Printing - Main Stylesheet */
+﻿/* HaFI85 Digital Printing - Main Stylesheet */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -22,7 +22,7 @@ body {
     min-height: 100vh;
 }
 
-/* ── LAYOUT ── */
+/* â”€â”€ LAYOUT â”€â”€ */
 .layout {
     display: flex;
     min-height: 100vh;
@@ -91,6 +91,47 @@ nav { flex: 1; display: flex; flex-direction: column; gap: 6px; }
     margin: 12px 0;
 }
 
+.sidebar-identity {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 14px;
+}
+.sidebar-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--purple), #8b6fff);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 15px;
+    flex-shrink: 0;
+}
+.sidebar-identity-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+}
+.sidebar-username {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.sidebar-role {
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #6B7280;
+}
+
 .main-content {
     margin-left: var(--sidebar-w);
     flex: 1;
@@ -98,7 +139,7 @@ nav { flex: 1; display: flex; flex-direction: column; gap: 6px; }
     min-height: 100vh;
 }
 
-/* ── PAGE HEADER ── */
+/* â”€â”€ PAGE HEADER â”€â”€ */
 .page-title {
     font-size: 32px;
     font-weight: 800;
@@ -111,7 +152,7 @@ nav { flex: 1; display: flex; flex-direction: column; gap: 6px; }
     margin-bottom: 28px;
 }
 
-/* ── CARDS / PANELS ── */
+/* â”€â”€ CARDS / PANELS â”€â”€ */
 .card {
     background: var(--white);
     border: 2px solid var(--border);
@@ -126,7 +167,7 @@ nav { flex: 1; display: flex; flex-direction: column; gap: 6px; }
     margin-bottom: 18px;
 }
 
-/* ── TABLES ── */
+/* â”€â”€ TABLES â”€â”€ */
 .table-wrap { overflow-x: auto; }
 table { width: 100%; border-collapse: collapse; }
 thead th {
@@ -149,7 +190,7 @@ tbody td {
 tbody tr:last-child td { border-bottom: none; }
 tbody tr:hover { background: #faf9ff; }
 
-/* ── BUTTONS ── */
+/* â”€â”€ BUTTONS â”€â”€ */
 .btn {
     display: inline-flex;
     align-items: center;
@@ -177,7 +218,7 @@ tbody tr:hover { background: #faf9ff; }
 .btn-full    { width: 100%; display: flex; }
 .btn-lg      { padding: 14px 28px; font-size: 16px; border-radius: 10px; }
 
-/* ── FORMS ── */
+/* â”€â”€ FORMS â”€â”€ */
 .form-group { margin-bottom: 16px; }
 .form-label { font-size: 13px; font-weight: 600; margin-bottom: 6px; display: block; }
 .form-control {
@@ -197,7 +238,7 @@ textarea.form-control { resize: vertical; min-height: 100px; }
 
 .form-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 16px; }
 
-/* ── BADGE ── */
+/* â”€â”€ BADGE â”€â”€ */
 .badge {
     display: inline-block;
     padding: 3px 10px;
@@ -215,7 +256,7 @@ textarea.form-control { resize: vertical; min-height: 100px; }
 .badge-finishing { background: #8b5cf6; color: #fff; }
 .badge-review    { background: var(--purple); color: #fff; }
 
-/* ── LOGIN PAGE ── */
+/* â”€â”€ LOGIN PAGE â”€â”€ */
 .login-page {
     min-height: 100vh;
     display: flex;
@@ -240,7 +281,7 @@ textarea.form-control { resize: vertical; min-height: 100px; }
 .login-btn { background: var(--purple); color: #fff; border: none; border-radius: 8px; padding: 12px; width: 100%; font-size: 14px; font-weight: 700; cursor: pointer; margin-top: 10px; letter-spacing: 0.5px; }
 .login-btn:hover { background: var(--purple-dark); }
 
-/* ── MODAL OVERLAY ── */
+/* â”€â”€ MODAL OVERLAY â”€â”€ */
 .modal-overlay {
     position: fixed; inset: 0;
     background: rgba(0,0,0,0.3);
@@ -260,13 +301,13 @@ textarea.form-control { resize: vertical; min-height: 100px; }
 .modal-title { font-size: 22px; font-weight: 800; text-align: center; margin-bottom: 8px; }
 .modal-sub   { text-align: center; color: var(--text-gray); font-size: 14px; margin-bottom: 20px; }
 
-/* ── ALERT ── */
+/* â”€â”€ ALERT â”€â”€ */
 .alert { padding: 12px 16px; border-radius: 8px; font-size: 13px; margin-bottom: 16px; }
 .alert-success { background: #dcfce7; color: #166534; border: 1px solid #86efac; }
 .alert-error   { background: #fee2e2; color: #991b1b; border: 1px solid #fca5a5; }
 .alert-warning { background: #fef3c7; color: #92400e; border: 1px solid #fcd34d; }
 
-/* ── FILTER TABS ── */
+/* â”€â”€ FILTER TABS â”€â”€ */
 .filter-tabs { display: flex; gap: 0; margin-bottom: 20px; border: 2px solid var(--border); border-radius: 8px; overflow: hidden; }
 .filter-tab {
     flex: 1; padding: 10px; text-align: center; font-size: 13px; font-weight: 700;
@@ -277,7 +318,7 @@ textarea.form-control { resize: vertical; min-height: 100px; }
 .filter-tab.active { background: var(--purple); color: #fff; }
 .filter-tab:hover:not(.active) { background: var(--purple-light); }
 
-/* ── SEARCH BAR ── */
+/* â”€â”€ SEARCH BAR â”€â”€ */
 .search-wrap { position: relative; margin-bottom: 16px; }
 .search-input {
     width: 100%;
@@ -293,7 +334,7 @@ textarea.form-control { resize: vertical; min-height: 100px; }
     color: var(--text-gray);
 }
 
-/* ── ORDER CARDS (Desainer) ── */
+/* â”€â”€ ORDER CARDS (Desainer) â”€â”€ */
 .order-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
 .order-card {
     border: 2px solid var(--border);
@@ -308,16 +349,16 @@ textarea.form-control { resize: vertical; min-height: 100px; }
 .order-card-img img { width: 100%; height: 100%; object-fit: cover; }
 .order-card-img .no-img { color: #9ca3af; font-size: 12px; }
 
-/* ── PROGRESS BAR ── */
+/* â”€â”€ PROGRESS BAR â”€â”€ */
 .progress-wrap { background: #e5e7eb; border-radius: 999px; height: 32px; overflow: hidden; }
 .progress-bar { height: 100%; background: linear-gradient(90deg, #38bdf8, #6366f1); border-radius: 999px; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 700; font-size: 14px; transition: width 0.5s; }
 
-/* ── INK LEVEL ── */
+/* â”€â”€ INK LEVEL â”€â”€ */
 .ink-item { margin-bottom: 10px; }
 .ink-label { font-size: 12px; font-weight: 700; margin-bottom: 4px; }
 .ink-bar { height: 28px; border-radius: 6px; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 700; font-size: 13px; }
 
-/* ── DETAIL ORDER VIEW ── */
+/* â”€â”€ DETAIL ORDER VIEW â”€â”€ */
 .detail-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
 .detail-panel { border: 2px solid var(--border); border-radius: 12px; padding: 20px; background: #fff; }
 .detail-panel-title { font-size: 14px; font-weight: 800; text-transform: uppercase; margin-bottom: 14px; text-align: center; }
@@ -325,7 +366,7 @@ textarea.form-control { resize: vertical; min-height: 100px; }
 .detail-key { color: var(--text-gray); min-width: 80px; }
 .detail-val { font-weight: 600; }
 
-/* ── PRODUCT TYPE BUTTONS ── */
+/* â”€â”€ PRODUCT TYPE BUTTONS â”€â”€ */
 .product-types { display: flex; flex-wrap: wrap; gap: 10px; }
 .product-btn {
     padding: 10px 20px;
@@ -341,7 +382,7 @@ textarea.form-control { resize: vertical; min-height: 100px; }
 .product-btn.selected,
 .product-btn:hover { background: var(--purple); color: #fff; border-color: var(--purple); }
 
-/* ── WORK LIST (Finishing) ── */
+/* â”€â”€ WORK LIST (Finishing) â”€â”€ */
 .work-list { display: flex; flex-direction: column; gap: 10px; }
 .work-item {
     display: flex; align-items: center; justify-content: space-between;
@@ -353,11 +394,11 @@ textarea.form-control { resize: vertical; min-height: 100px; }
 .work-item-info h4 { font-size: 15px; font-weight: 700; }
 .work-item-info p  { font-size: 12px; color: var(--text-gray); }
 
-/* ── REPORT CHART AREA ── */
+/* â”€â”€ REPORT CHART AREA â”€â”€ */
 .report-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
 .chart-wrap { width: 100%; height: 220px; }
 
-/* ── RESPONSIVE ── */
+/* â”€â”€ RESPONSIVE â”€â”€ */
 @media (max-width: 768px) {
     .sidebar { width: 60px; padding: 12px 8px; }
     .sidebar-logo, .nav-item span, .sidebar-logo-text, .sidebar-logo-sub { display: none; }
@@ -366,7 +407,7 @@ textarea.form-control { resize: vertical; min-height: 100px; }
     .report-grid { grid-template-columns: 1fr; }
 }
 
-/* ── MISC ── */
+/* â”€â”€ MISC â”€â”€ */
 .text-center { text-align: center; }
 .text-right  { text-align: right; }
 .mt-1 { margin-top: 8px; }

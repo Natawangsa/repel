@@ -22,6 +22,7 @@ if ($session) {
     ");
 }
 $selectedIds = array_column(array_map(fn($r)=>(array)$r, $selectedOrders), 'order_id');
+$printers = dbSelect("SELECT * FROM printers ORDER BY id ASC");
 
 layoutStart('Dashboard','dashboard');
 ?>
@@ -91,6 +92,14 @@ layoutStart('Dashboard','dashboard');
     </div>
     <form method="POST" action="/operator/start">
       <input type="hidden" name="_token" value="<?= csrfToken() ?>">
+      <select name="printer_id" class="form-control" style="margin-bottom:10px;font-size:12px;">
+        <option value="0">-- Pilih Mesin --</option>
+        <?php foreach ($printers as $pr):
+          $connLabel = ($pr->connection_type ?? 'lan') === 'usb' ? 'USB' : 'LAN';
+        ?>
+        <option value="<?= $pr->id ?>"><?= h($pr->name) ?> (<?= h($pr->machine) ?>) [<?= $connLabel ?>]</option>
+        <?php endforeach; ?>
+      </select>
       <button type="submit" class="btn btn-purple btn-full btn-lg">▶ MULAI PRINT</button>
     </form>
     <?php else: ?>

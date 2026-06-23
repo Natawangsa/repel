@@ -84,9 +84,13 @@ function layoutStart(string $title, string $activeNav): void {
     <?php endforeach; ?>
   </nav>
   <hr class="sidebar-divider">
-  <a href="/<?= $role ?>/profile" class="nav-item <?= $activeNav === 'profile' ? 'active' : '' ?>">
-    <?= svgIcon('user') ?><span>Profile</span>
-  </a>
+  <div class="sidebar-identity">
+    <div class="sidebar-avatar"><?= strtoupper(mb_substr($user['username'], 0, 1)) ?></div>
+    <div class="sidebar-identity-info">
+      <span class="sidebar-username"><?= h($user['username']) ?></span>
+      <span class="sidebar-role"><?= ucfirst(h($role)) ?></span>
+    </div>
+  </div>
   <hr class="sidebar-divider">
   <form method="POST" action="/logout" style="margin-top:auto;">
     <input type="hidden" name="_token" value="<?= csrfToken() ?>">

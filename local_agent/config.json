@@ -1,0 +1,28 @@
+{
+    "api_url": "http://localhost:8000/api/printer-status",
+    "api_key": "hafi85-printer-agent-key",
+    "poll_interval_seconds": 30,
+    "printers": [
+        {
+            "name": "PC Indoor",
+            "ip": "192.168.1.164",
+            "type": "lan"
+        },
+        {
+            "name": "PC Bendera",
+            "ip": "192.168.1.10",
+            "type": "lan"
+        },
+        {
+            "name": "Laser Cutting 1",
+            "ip": "192.168.1.135",
+            "type": "lan"
+        },
+        {
+            "name": "PC Server - A3",
+            "ip": "192.168.1.56",
+            "type": "lan"
+        }
+    ],
+    "_comment_uv": "Tambahkan PC Hafi 1 - UV setelah IP diketahui: {\"name\": \"PC Hafi 1 - UV\", \"ip\": \"192.168.1.xxx\", \"type\": \"lan\"}"
+}

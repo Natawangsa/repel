@@ -45,3 +45,12 @@ function dbRun(string $sql, array $params = []): void {
     $st = db()->prepare($sql);
     $st->execute($params);
 }
+
+function getOrCreateSession(int $userId): object {
+    $session = dbSelectOne("SELECT * FROM print_sessions WHERE user_id=?", [$userId]);
+    if (!$session) {
+        dbRun("INSERT INTO print_sessions (user_id,session_date,status,progress,estimate_time,ink_c,ink_m,ink_y,ink_k) VALUES (?,date('now'),'idle',0,'00:00',75,60,80,30)", [$userId]);
+        $session = dbSelectOne("SELECT * FROM print_sessions WHERE user_id=?", [$userId]);
+    }
+    return $session;
+}

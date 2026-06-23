@@ -73,7 +73,8 @@ $db->exec("CREATE TABLE expenses (
 )");
 
 $db->exec("CREATE TABLE print_sessions (
-    id            INTEGER PRIMARY KEY,
+    id            INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id       INTEGER NOT NULL,
     session_date  TEXT,
     status        TEXT DEFAULT 'idle',
     progress      INTEGER DEFAULT 0,
@@ -116,6 +117,14 @@ $users = [
     ['admin',     'admin123',     'admin'],
     ['desainer',  'desainer123',  'desainer'],
     ['operator',  'operator123',  'operator'],
+    ['operator_uv',      'operator123',  'operator'],
+    ['operator_indoor',  'operator123',  'operator'],
+    ['operator_bendera', 'operator123',  'operator'],
+    ['operator_dtf',     'operator123',  'operator'],
+    ['operator_banner',  'operator123',  'operator'],
+    ['operator_a3',      'operator123',  'operator'],
+    ['operator_laser1',  'operator123',  'operator'],
+    ['operator_laser2',  'operator123',  'operator'],
     ['finishing', 'finishing123', 'finishing'],
     ['owner',     'owner123',     'owner'],
 ];
@@ -125,9 +134,7 @@ foreach ($users as [$u, $p, $r]) {
     $stmt->execute([$u, password_hash($p, PASSWORD_DEFAULT), $r]);
 }
 
-// Print session default
-$db->exec("INSERT INTO print_sessions (id,session_date,status,progress,estimate_time)
-           VALUES (1,date('now'),'idle',0,'00:00')");
+// Print sessions are now created on-demand per operator user (no hardcoded seed)
 
 // Seed printers
 $printerStmt = $db->prepare("INSERT INTO printers (name, machine, ip_address, connection_type) VALUES (?, ?, ?, ?)");
@@ -147,11 +154,19 @@ foreach ($printers as [$name, $machine, $ip, $conn]) {
 
 echo "✓ Database baru berhasil dibuat (bersih, tanpa data dummy)!\n\n";
 echo "✓ Akun login:\n";
-echo "  admin       / admin123\n";
-echo "  desainer    / desainer123\n";
-echo "  operator    / operator123\n";
-echo "  finishing   / finishing123\n";
-echo "  owner       / owner123\n\n";
+echo "  admin            / admin123\n";
+echo "  desainer         / desainer123\n";
+echo "  operator         / operator123     (generic)\n";
+echo "  operator_uv      / operator123     (PC Hafi 1 - UV)\n";
+echo "  operator_indoor  / operator123     (PC Indoor)\n";
+echo "  operator_bendera / operator123     (PC Bendera)\n";
+echo "  operator_dtf     / operator123     (PC DTF)\n";
+echo "  operator_banner  / operator123     (PC Banner)\n";
+echo "  operator_a3      / operator123     (PC Server - A3)\n";
+echo "  operator_laser1  / operator123     (Laser Cutting 1)\n";
+echo "  operator_laser2  / operator123     (Laser Cutting 2)\n";
+echo "  finishing        / finishing123\n";
+echo "  owner            / owner123\n\n";
 echo "Sekarang jalankan: php -S localhost:8000 -t public\n\n";
 
 echo "=== ALUR KERJA ===\n";
